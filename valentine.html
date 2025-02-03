@@ -39,24 +39,29 @@
     }
 
     .message-container {
+      padding-top: 2vh;
       width: 80%;
       max-width: 400px;
+      height: calc(100vh - 120px); /* Fit below the headline */
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      gap: 20px;
       overflow: hidden; /* Hide scrollbar */
+      position: relative; /* For absolute positioning of message boxes */
     }
 
     .message-box {
+      margin-top: 7vh;
       width: 100%;
       background: rgba(255, 255, 255, 0.9);
       border-radius: 15px;
       padding: 20px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       opacity: 0;
-      transform: translateY(100%);
-      transition: opacity 1s ease-out, transform 1s ease-out;
+      transform: translateY(150px);
+      transition: opacity 2.5s ease-out, transform 1s ease-out;
+      position: absolute; /* All boxes in the same position */
+      top: 0; /* Fixed position */
     }
 
     .message-box.visible {
@@ -64,11 +69,24 @@
       transform: translateY(0);
     }
 
-    .message-box.fade-out {
+    .message-box.fade-out-up {
       opacity: 0;
-      transform: translateY(-100%);
-      transition: opacity 1s ease-out, transform 1s ease-out;
+      transform: translateY(-150px);
+      transition: opacity 2.5s ease-out, transform 1s ease-out;
     }
+
+    .message-box.fade-out-down {
+      opacity: 0;
+      transform: translateY(150px);
+      transition: opacity 2.5s ease-out, transform 1s ease-out;
+    }
+
+    .message-box.fade-in-down {
+      opacity: 1;
+      transform: translateY(-150px);
+      transition: opacity 2.5s ease-out, transform 1s ease-out;
+    }
+
 
     .message-box p {
       margin: 0;
@@ -106,10 +124,20 @@
       if (currentIndex >= messageBoxes.length - 1) return; // Stop if no more messages
 
       // Fade out the current message box
-      messageBoxes[currentIndex].classList.add('fade-out');
+      messageBoxes[currentIndex].classList.add('fade-out-up');
 
       // Fade in the next message box
       currentIndex++;
+      messageBoxes[currentIndex].classList.remove('fade-out-down');
+      messageBoxes[currentIndex].classList.add('visible');
+    }
+
+    function handleSwipeDown() {
+      if (currentIndex <= 0) return;
+      messageBoxes[currentIndex].classList.add('fade-out-down');
+
+      currentIndex--;
+      messageBoxes[currentIndex].classList.remove('fade-out-up');
       messageBoxes[currentIndex].classList.add('visible');
     }
 
@@ -127,6 +155,10 @@
       // Detect swipe up (deltaY > 50 to avoid accidental swipes)
       if (deltaY > 50) {
         handleSwipeUp();
+      }
+      // Detect swipe down (deltaY < -50 to avoid accidental swipes)
+      else if (deltaY < -50) {
+        handleSwipeDown();
       }
     });
   </script>

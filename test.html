@@ -41,11 +41,12 @@
     .message-container {
       width: 80%;
       max-width: 400px;
+      height: calc(100vh - 120px); /* Fit below the headline */
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      gap: 20px;
       overflow: hidden; /* Hide scrollbar */
+      position: relative; /* For absolute positioning of message boxes */
     }
 
     .message-box {
@@ -55,10 +56,10 @@
       padding: 20px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       opacity: 0;
-      transform: translateY(100%);
+      transform: translateY(0);
       transition: opacity 1s ease-out, transform 1s ease-out;
-      position: absolute;
-      bottom: 20px; /* Start at the bottom */
+      position: absolute; /* All boxes in the same position */
+      top: 0; /* Fixed position */
     }
 
     .message-box.visible {
@@ -66,9 +67,27 @@
       transform: translateY(0);
     }
 
-    .message-box.fade-out {
+    .message-box.fade-out-bottom {
+      opacity: 0;
+      transform: translateY(100%);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+
+    .message-box.fade-in-top {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+
+    .message-box.fade-out-top {
       opacity: 0;
       transform: translateY(-100%);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+
+    .message-box.fade-in-bottom {
+      opacity: 1;
+      transform: translateY(0);
       transition: opacity 1s ease-out, transform 1s ease-out;
     }
 
@@ -103,15 +122,29 @@
     const messageBoxes = document.querySelectorAll('.message-box');
     let currentIndex = 0;
 
-    // Function to handle swipe up
+    // Function to handle swipe up (next message)
     function handleSwipeUp() {
       if (currentIndex >= messageBoxes.length - 1) return; // Stop if no more messages
 
-      // Fade out the current message box
-      messageBoxes[currentIndex].classList.add('fade-out');
+      // Fade out the current message box through the bottom
+      messageBoxes[currentIndex].classList.add('fade-out-bottom');
 
-      // Fade in the next message box at the same position
+      // Fade in the next message box from the top
       currentIndex++;
+      messageBoxes[currentIndex].classList.add('fade-in-top');
+      messageBoxes[currentIndex].classList.add('visible');
+    }
+
+    // Function to handle swipe down (previous message)
+    function handleSwipeDown() {
+      if (currentIndex <= 0) return; // Stop if no previous messages
+
+      // Fade out the current message box through the top
+      messageBoxes[currentIndex].classList.add('fade-out-top');
+
+      // Fade in the previous message box from the bottom
+      currentIndex--;
+      messageBoxes[currentIndex].classList.add('fade-in-bottom');
       messageBoxes[currentIndex].classList.add('visible');
     }
 
@@ -129,6 +162,10 @@
       // Detect swipe up (deltaY > 50 to avoid accidental swipes)
       if (deltaY > 50) {
         handleSwipeUp();
+      }
+      // Detect swipe down (deltaY < -50 to avoid accidental swipes)
+      else if (deltaY < -50) {
+        handleSwipeDown();
       }
     });
   </script>
