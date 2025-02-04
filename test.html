@@ -3,170 +3,116 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Valentine's Day!</title>
+  <title>Will You Be My Valentine?</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     body {
       margin: 0;
       overflow: hidden;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-      font-family: 'Arial', sans-serif;
-      height: 100vh;
+      background: linear-gradient(135deg, #ff6f61, #ffcccb);
       display: flex;
-      justify-content: flex-end;
-      align-items: flex-start; /* Align content to the top */
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      position: relative;
     }
 
     .container {
+      text-align: center;
+      color: white;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      color: white;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .yes {
+      background: #ff6f61;
+    }
+
+    .no {
+      background: #ffcccb;
+    }
+
+    /* Cursor Light Effect */
+    body::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start; /* Align content to the top */
-      align-items: flex-end;
-      padding: 20px;
-      padding-right: 40px; /* Right padding */
-      box-sizing: border-box;
-    }
-
-    .headline {
-      font-size: 3rem;
-      font-weight: 700; /* Thicker text */
-      color: white;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-      margin-bottom: 20px;
-      text-align: right;
-    }
-
-    .message-container {
-      width: 80%;
-      max-width: 400px;
-      height: calc(100vh - 120px); /* Fit below the headline */
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      overflow: hidden; /* Hide scrollbar */
-      position: relative; /* For absolute positioning of message boxes */
-    }
-
-    .message-box {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      opacity: 0;
-      transform: translateY(0);
-      transition: opacity 1s ease-out, transform 1s ease-out;
-      position: absolute; /* All boxes in the same position */
-      top: 0; /* Fixed position */
-    }
-
-    .message-box.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .message-box.fade-out-bottom {
-      opacity: 0;
-      transform: translateY(100%);
-      transition: opacity 1s ease-out, transform 1s ease-out;
-    }
-
-    .message-box.fade-in-top {
-      opacity: 1;
-      transform: translateY(0);
-      transition: opacity 1s ease-out, transform 1s ease-out;
-    }
-
-    .message-box.fade-out-top {
-      opacity: 0;
-      transform: translateY(-100%);
-      transition: opacity 1s ease-out, transform 1s ease-out;
-    }
-
-    .message-box.fade-in-bottom {
-      opacity: 1;
-      transform: translateY(0);
-      transition: opacity 1s ease-out, transform 1s ease-out;
-    }
-
-    .message-box p {
-      margin: 0;
-      font-size: 1.2rem;
-      color: #333;
+      pointer-events: none;
+      background: radial-gradient(circle at var(--x) var(--y), rgba(255, 255, 255, 0.1), transparent 100px);
+      z-index: -1;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="headline">Thank you my love</div>
-    <div class="message-container" id="messageContainer">
-      <div class="message-box visible" id="message1">
-        <p>You make every day brighter just by being in it. 💖</p>
-      </div>
-      <div class="message-box" id="message2">
-        <p>I cherish every moment we spend together. 🌸</p>
-      </div>
-      <div class="message-box" id="message3">
-        <p>Your love is the most beautiful thing in my life. 🌷</p>
-      </div>
-      <div class="message-box" id="message4">
-        <p>Forever grateful to have you by my side. 💕</p>
-      </div>
+    <h1>Will you be my Valentine?</h1>
+    <div class="buttons">
+      <a href="valentine.html" class="btn yes" id="yesBtn">Yes</a>
+      <button class="btn no" id="noBtn">No</button>
     </div>
   </div>
 
   <script>
-    const messageContainer = document.getElementById('messageContainer');
-    const messageBoxes = document.querySelectorAll('.message-box');
-    let currentIndex = 0;
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const noTexts = ["no :c", "pleasee", "cmon babe >:c", "please babe just gimme a chance :("];
+    let yesScale = 1; // Initial scale for the Yes button
 
-    // Function to handle swipe up (next message)
-    function handleSwipeUp() {
-      if (currentIndex >= messageBoxes.length - 1) return; // Stop if no more messages
-
-      // Fade out the current message box through the bottom
-      messageBoxes[currentIndex].classList.add('fade-out-bottom');
-
-      // Fade in the next message box from the top
-      currentIndex++;
-      messageBoxes[currentIndex].classList.add('fade-in-top');
-      messageBoxes[currentIndex].classList.add('visible');
+    // Function to change the No button text randomly
+    function changeNoText() {
+      const randomIndex = Math.floor(Math.random() * noTexts.length);
+      noBtn.textContent = noTexts[randomIndex];
     }
 
-    // Function to handle swipe down (previous message)
-    function handleSwipeDown() {
-      if (currentIndex <= 0) return; // Stop if no previous messages
-
-      // Fade out the current message box through the top
-      messageBoxes[currentIndex].classList.add('fade-out-top');
-
-      // Fade in the previous message box from the bottom
-      currentIndex--;
-      messageBoxes[currentIndex].classList.add('fade-in-bottom');
-      messageBoxes[currentIndex].classList.add('visible');
+    // Function to increase the size of the Yes button
+    function increaseYesSize() {
+      yesScale += 0.2; // Increase scale by 0.2 each time
+      yesBtn.style.transform = `scale(${yesScale})`;
     }
 
-    // Touch event handlers for swipe detection
-    let touchStartY = 0;
-
-    messageContainer.addEventListener('touchstart', (e) => {
-      touchStartY = e.touches[0].clientY;
+    // Add click event listener to the No button
+    noBtn.addEventListener('click', () => {
+      changeNoText(); // Change the No button text
+      increaseYesSize(); // Increase the size of the Yes button
     });
 
-    messageContainer.addEventListener('touchend', (e) => {
-      const touchEndY = e.changedTouches[0].clientY;
-      const deltaY = touchStartY - touchEndY;
-
-      // Detect swipe up (deltaY > 50 to avoid accidental swipes)
-      if (deltaY > 50) {
-        handleSwipeUp();
-      }
-      // Detect swipe down (deltaY < -50 to avoid accidental swipes)
-      else if (deltaY < -50) {
-        handleSwipeDown();
-      }
+    // Cursor light effect
+    document.addEventListener('mousemove', (e) => {
+      document.documentElement.style.setProperty('--x', `${e.clientX}px`);
+      document.documentElement.style.setProperty('--y', `${e.clientY}px`);
     });
   </script>
 </body>
