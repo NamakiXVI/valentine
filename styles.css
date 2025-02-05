@@ -16,6 +16,7 @@
   }
   
   .container {
+    padding-top: 1vh;
     text-align: center;
     color: white;
   }
