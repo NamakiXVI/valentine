@@ -3,193 +3,301 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Valentine's Day!</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="valentines-style.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
+  <title>Romantic Valentine's Calendar</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap">
   <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-      font-family: 'Arial', sans-serif;
-      height: 100vh;
-      display: flex;
-      justify-content: flex-end;
-      align-items: flex-start; /* Align content to the top */
-    }
-  
-    .container {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start; /* Align content to the top */
-      align-items: flex-end;
-      padding: 20px;
-      padding-right: 40px; /* Right padding */
-      box-sizing: border-box;
-    }
-  
-    .headline {
-      font-size: 3rem;
-      font-weight: 700; /* Thicker text */
-      color: white;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-      margin-bottom: 20px;
-      text-align: right;
-    }
-  
-    .message-container {
-      width: 80%;
-      max-width: 400px;
-      height: 100%; /* calc(100vh - 120px) Fit below the headline */
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      overflow: hidden; /* Hide scrollbar */
-      position: relative; /* For absolute positioning of message boxes */
-    }
-  
-    .message-box {
-      margin-top: 7vh;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      opacity: 0;
-      transform: translateY(150px);
-      transition: opacity 2.5s ease-out, transform 1s ease-out;
-      position: absolute; /* All boxes in the same position */
-      top: 0; /* Fixed position */
-    }
-  
-    .message-box.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  
-    .message-box.fade-out-up {
-      opacity: 0;
-      transform: translateY(-150px);
-      transition: opacity 2.5s ease-out, transform 1s ease-out;
-    }
-  
-    .message-box.fade-out-down {
-      opacity: 0;
-      transform: translateY(150px);
-      transition: opacity 2.5s ease-out, transform 1s ease-out;
-    }
-  
-    .message-box.fade-in-down {
-      opacity: 1;
-      transform: translateY(-150px);
-      transition: opacity 2.5s ease-out, transform 1s ease-out;
-    }
-  
-    .message-box p {
-      margin: 0;
-      font-size: 1.2rem;
-      color: #333;
-    }
-  
-    #calendar {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-  
-    #map {
-      margin-top: 10px;
-      border-radius: 10px;
-    }
+/* Existing CSS */
+/* Existing CSS */
+body {
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  font-family: 'Arial', sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 90%;
+  max-width: 400px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 0 30px rgba(255, 58, 141, 0.2);
+}
+
+.headline {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ff3a8d;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.calendar-wrapper {
+  margin-top: 20px;
+}
+
+.calendar-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.calendar-title {
+  font-family: 'Pacifico', cursive;
+  color: #ff3a8d;
+  font-size: 1.8rem;
+  margin-bottom: 5px;
+}
+
+.calendar-year {
+  color: #ff6b9d;
+  font-size: 1.2rem;
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.weekday {
+  text-align: center;
+  color: #ff3a8d;
+  font-weight: bold;
+  padding: 5px;
+  font-size: 0.9rem;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.date-btn {
+  width: 100%;
+  height: 0;
+  padding-top: 100%; /* Makes the button square */
+  border: none;
+  border-radius: 8px;
+  background: #fff0f5;
+  color: #ff3a8d;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.date-btn > span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.date-btn:not(.empty):hover {
+  background: #ffdde6;
+  transform: scale(1.05);
+}
+
+.date-btn.empty {
+  background: transparent;
+  cursor: default;
+}
+
+.special-date {
+  background: #b8f7d4 !important;
+  animation: heartBeat 1.5s infinite;
+  box-shadow: 0 0 15px rgba(100, 255, 150, 0.5);
+}
+
+@keyframes heartBeat {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.romantic-text {
+  text-align: center;
+  color: #ff3a8d;
+  margin-top: 20px;
+  font-size: 1.1rem;
+}
+
+/* iPhone Responsiveness */
+@media (max-width: 480px) {
+  .container {
+    padding: 15px;
+  }
+
+  .headline {
+    font-size: 1.5rem;
+  }
+
+  .calendar-title {
+    font-size: 1.4rem;
+  }
+
+  .calendar-year {
+    font-size: 1rem;
+  }
+
+  .weekday {
+    font-size: 0.8rem;
+  }
+
+  .date-btn {
+    font-size: 0.8rem;
+  }
+
+  .romantic-text {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 375px) { /* iPhone SE and smaller */
+  .container {
+    padding: 10px;
+  }
+
+  .headline {
+    font-size: 1.3rem;
+  }
+
+  .calendar-title {
+    font-size: 1.2rem;
+  }
+
+  .calendar-year {
+    font-size: 0.9rem;
+  }
+
+  .weekday {
+    font-size: 0.7rem;
+  }
+
+  .date-btn {
+    font-size: 0.7rem;
+  }
+
+  .romantic-text {
+    font-size: 0.9rem;
+  }
+}
   </style>
-
-  <script>
-    // Initialize Flatpickr for the calendar
-    const calendar = flatpickr("#calendar", {
-        enableTime: false,
-        dateFormat: "Y-m-d",
-        onChange: function(selectedDates, dateStr, instance) {
-            selectedDate = dateStr;
-            sendData();
-        }
-    });
-
-    // Initialize Leaflet map
-    const map = L.map('map').setView([51.505, -0.09], 13); // Default to London
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-    }).addTo(map);
-
-    let selectedLocation = null;
-    map.on('click', function(e) {
-        if (selectedLocation) {
-            map.removeLayer(selectedLocation);
-        }
-        selectedLocation = L.marker(e.latlng).addTo(map);
-        sendData();
-    });
-
-    // Function to send data
-    function sendData() {
-        const date = calendar.selectedDates[0] ? calendar.selectedDates[0].toISOString().split('T')[0] : null;
-        const location = selectedLocation ? selectedLocation.getLatLng() : null;
-
-        if (date && location) {
-            const message = `Selected Date: ${date}, Selected Location: ${location.lat}, ${location.lng}`;
-            // Replace with your phone number and message sending logic
-            console.log(message); // For demonstration, log to console
-            // Example: Send via SMS API (Twilio, etc.)
-            // fetch('https://api.twilio.com/2010-04-01/Accounts/{AccountSID}/Messages.json', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/x-www-form-urlencoded',
-            //         'Authorization': 'Basic ' + btoa('{AccountSID}:{AuthToken}')
-            //     },
-            //     body: `To=+1234567890&From=+0987654321&Body=${encodeURIComponent(message)}`
-            // });
-        }
-    }
-  </script>
 </head>
 <body>
   <div class="container">
     <div class="headline">OUR FIRST VALENTINES DAYY🌷🌷</div>
     <div class="message-container" id="messageContainer">
-      <div class="message-box visible" id="message1">
-        <p>Heyy myy lovee, <br> Ive been thinkin bout how lucky I am to have you in my lifee</p>
-      </div>
-      <div class="message-box" id="message2">
-        <p>and I cant wait to spend my first Valentines Day withh youu and not alonee</p>
-      </div>
-      <div class="message-box" id="message3">
-        <p>You make every day brighter just by being in it. 💖</p>
-        <p>I cherish every moment we spend together. 🌸</p>
-        <p>Your love is the most beautiful thing in my life. 🌷</p>
-        <p>Forever grateful to have you by my side. 💕</p>
-      </div>
+      <!-- Other message boxes -->
       <div class="message-box" id="message4">
-        <p>Choose a date for our next adventure:</p>
-        <input type="text" id="calendar" placeholder="Select Date">
-      </div>
-      <div class="message-box" id="message5">
-        <p>Choose a location for our next adventure:</p>
-        <div id="map" style="height: 300px; width: 100%;"></div>
-      </div>
-      <div class="message-box" id="message6">
-        <p>Forever grateful to have you by my side. 💕</p>
+        <div class="calendar-wrapper">
+          <div class="calendar-header" id="calendarHeader"></div>
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
       </div>
     </div>
   </div>
 
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-  <script src="valentine-script.js"></script>
+  <script>
+// Generate the calendar grid
+function generateCalendarGrid() {
+  const calendarGrid = document.getElementById('calendarGrid');
+  const calendarHeader = document.getElementById('calendarHeader');
+  const year = 2025;
+  const month = 1; // February (0-indexed)
+  const specialDate = 14;
+
+  // Clear existing content
+  calendarGrid.innerHTML = '';
+
+  // Set calendar header
+  const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"];
+  calendarHeader.innerHTML = `
+    <div class="calendar-title">${monthNames[month]} ❤️</div>
+    <div class="calendar-year">${year}</div>
+  `;
+
+
+  // Create date grid
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const firstDayOfWeek = new Date(year, month, 1).getDay();
+
+  // Create weekday headers
+  const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const weekdayContainer = document.createElement('div');
+  weekdayContainer.className = 'weekdays';
+  weekdays.forEach(day => {
+    const weekdayElem = document.createElement('div');
+    weekdayElem.className = 'weekday';
+    weekdayElem.textContent = day;
+    weekdayContainer.appendChild(weekdayElem);
+  });
+
+  // Add empty days
+  for (let i = 0; i < weekdays.length; i++) {
+    const weekdayBtn = document.createElement('button');
+    weekdayBtn.className = 'date-btn';
+    weekdayBtn.innerHTML = `<span>${weekdays[i]}</span>`;
+    calendarGrid.appendChild(weekdayBtn);
+  }
+
+  // Add empty days
+  for (let i = 0; i < firstDayOfWeek; i++) {
+    const emptyBtn = document.createElement('button');
+    emptyBtn.className = 'date-btn empty';
+    calendarGrid.appendChild(emptyBtn);
+  }
+
+  // Add date buttons
+  for (let day = 1; day <= daysInMonth; day++) {
+    const dateBtn = document.createElement('button');
+    dateBtn.className = 'date-btn';
+    dateBtn.innerHTML = `<span>${day}</span>`;
+
+    if (day === specialDate) {
+      dateBtn.innerHTML = `
+        <span>${day}</span>
+        <div class="heart-corner">❤️</div>
+      `;
+    }
+
+    dateBtn.addEventListener('click', () => handleDateClick(day, dateBtn));
+    calendarGrid.appendChild(dateBtn);
+  }
+}
+
+// Handle date clicks
+function handleDateClick(day, button) {
+  const allButtons = document.querySelectorAll('.date-btn');
+  allButtons.forEach(btn => btn.classList.remove('special-date'));
+
+  if (day === 14) {
+    button.classList.add('special-date');
+    button.innerHTML = `
+      <span>${day}</span>
+      <div class="heart-corner">❤️</div>
+    `;
+    // Add romantic animation effect
+    button.style.transform = 'scale(1.1)';
+    setTimeout(() => {
+      button.style.transform = 'scale(1)';
+    }, 100);
+  }
+}
+
+// Generate the calendar when the page loads
+generateCalendarGrid();
+  </script>
 </body>
 </html>

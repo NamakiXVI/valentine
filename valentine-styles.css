@@ -79,59 +79,14 @@ body {
     transition: opacity 2.5s ease-out, transform 1s ease-out;
   }
 
-
   .message-box p {
     margin: 0;
     font-size: 1.2rem;
     color: #333;
   }
 
-  #message6{
-    height: 100%;
-    width: 800px;
-  }
-
-  .calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr); /* 7 days in a week */
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .calendar-grid button {
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #f0f0f0;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .calendar-grid button:hover {
-    background-color: #ddd;
-  }
-  
-  .calendar-grid button.special-date {
-    animation: neonGlow 1.5s infinite alternate;
-    background-color: #90ee90; /* Light green */
-    box-shadow: 0 0 10px #90ee90, 0 0 20px #90ee90, 0 0 30px #90ee90;
-  }
-  
-  @keyframes neonGlow {
-    from {
-      box-shadow: 0 0 10px #90ee90, 0 0 20px #90ee90, 0 0 30px #90ee90;
-    }
-    to {
-      box-shadow: 0 0 20px #90ee90, 0 0 30px #90ee90, 0 0 40px #90ee90;
-    }
-  }
-
   .calendar-wrapper {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 15px;
-    padding: 20px;
     margin-top: 20px;
-    box-shadow: 0 0 30px rgba(255, 58, 141, 0.2);
   }
   
   .calendar-header {
@@ -173,10 +128,12 @@ body {
   }
   
   .date-btn {
-    aspect-ratio: 1;
+    width: 100%;
+    height: 0;
+    padding-top: 100%; /* Makes the button square */
     border: none;
     border-radius: 8px;
-    background: #fff0f5;
+    background: #ffc1d6;
     color: #ff3a8d;
     font-weight: bold;
     cursor: pointer;
@@ -188,9 +145,16 @@ body {
     overflow: hidden;
   }
   
+  .date-btn > span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
   .date-btn:not(.empty):hover {
     background: #ffdde6;
-    transform: scale(1.05);
+    transform: scale(1.5);
   }
   
   .date-btn.empty {
@@ -209,27 +173,71 @@ body {
     50% { transform: scale(1.1); }
     100% { transform: scale(1); }
   }
-
-  @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-
+  
+  .romantic-text {
+    text-align: center;
+    color: #ff3a8d;
+    margin-top: 20px;
+    font-size: 1.1rem;
+  }
+  
+  /* iPhone Responsiveness */
   @media (max-width: 480px) {
-    .calendar-wrapper {
-      padding: 10px;
+    .container {
+      padding: 15px;
     }
-    
-    .date-btn {
-      font-size: 0.8rem;
+  
+    .headline {
+      font-size: 3rem;
     }
-    
-    .weekday {
-      font-size: 0.8rem;
-    }
-    
+  
     .calendar-title {
       font-size: 1.4rem;
     }
-    
+  
     .calendar-year {
       font-size: 1rem;
+    }
+  
+    .weekday {
+      font-size: 0.8rem;
+    }
+  
+    .date-btn {
+      font-size: 0.8rem;
+    }
+  
+    .romantic-text {
+      font-size: 1rem;
+    }
+  }
+  
+  @media (max-width: 375px) { /* iPhone SE and smaller */
+    .container {
+      padding: 10px;
+    }
+  
+    .headline {
+      font-size: 1.3rem;
+    }
+  
+    .calendar-title {
+      font-size: 1.2rem;
+    }
+  
+    .calendar-year {
+      font-size: 0.9rem;
+    }
+  
+    .weekday {
+      font-size: 0.7rem;
+    }
+  
+    .date-btn {
+      font-size: 0.7rem;
+    }
+  
+    .romantic-text {
+      font-size: 0.9rem;
     }
   }

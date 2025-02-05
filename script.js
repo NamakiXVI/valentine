@@ -1,6 +1,8 @@
 // Move the "No" button randomly
+const yesBtn = document.getElementById('yesBtn');
 const noBtn = document.getElementById('noBtn');
-const yesBtn = document.getElementById("yesBtn");
+const thankYouText = document.getElementById('thankYouText');
+const gifContainer = document.getElementById('gifContainer');
 const noTexts = ["no", "no :c", "pleaseee","cmon babe >:c", "please babe just gimme a chancee", ">:C", "PLEASEEE", "u sure?", "u rlly sure bout that?", "maybe think again", "nuh uh", "yes is also an option", "youre really sure? :c", "plzz", "'yes' aint thaat bad", "just one timee"];
 noBtn.addEventListener('click', () => {
   const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
@@ -22,3 +24,21 @@ function changeNoText() {
   const randomIndex = Math.floor(Math.random() * noTexts.length);
   noBtn.textContent = noTexts[randomIndex];
 }
+
+yesBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  
+  // Show GIF and thank you text
+  document.querySelector('h1').innerHTML = "Thankk youuu babee";
+  thankYouText.style.display = 'block';
+  gifContainer.style.display = 'block';
+  
+  // Redirect after 3 seconds
+  setTimeout(() => {
+    window.location.href = 'valentine.html';
+  }, 3000);
+});
+
+const script = document.createElement('script');
+script.src = 'https://tenor.com/embed.js';
+document.body.appendChild(script);
