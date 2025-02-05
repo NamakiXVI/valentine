@@ -1,8 +1,7 @@
 // Move the "No" button randomly
 const noBtn = document.getElementById('noBtn');
 const yesBtn = document.getElementById("yesBtn");
-const noTexts = ["no", "no :c", "pleaseee","cmon babe >:c", "please babe just gimme a chancee", ">:C", "PLEASEEE"];
-
+const noTexts = ["no", "no :c", "pleaseee","cmon babe >:c", "please babe just gimme a chancee", ">:C", "PLEASEEE", "u sure?", "u rlly sure bout that?", "maybe think again", "nuh uh", "yes is also an option", "youre really sure? :c", "plzz", "'yes' aint thaat bad", "just one timee"];
 noBtn.addEventListener('click', () => {
   const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
   const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);

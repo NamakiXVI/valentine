@@ -3,117 +3,193 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Will You Be My Valentine?</title>
+  <title>Happy Valentine's Day!</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="valentines-style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
   <style>
     body {
       margin: 0;
       overflow: hidden;
-      background: linear-gradient(135deg, #ff6f61, #ffcccb);
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: 'Arial', sans-serif;
       height: 100vh;
-      position: relative;
-    }
-
-    .container {
-      text-align: center;
-      color: white;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    }
-
-    .buttons {
       display: flex;
-      gap: 20px;
-      justify-content: center;
+      justify-content: flex-end;
+      align-items: flex-start; /* Align content to the top */
     }
-
-    .btn {
-      padding: 15px 30px;
-      font-size: 1.2rem;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      color: white;
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-
-    .btn:hover {
-      transform: scale(1.1);
-      background: rgba(255, 255, 255, 0.3);
-    }
-
-    .yes {
-      background: #ff6f61;
-    }
-
-    .no {
-      background: #ffcccb;
-    }
-
-    /* Cursor Light Effect */
-    body::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
+  
+    .container {
       width: 100%;
       height: 100%;
-      pointer-events: none;
-      background: radial-gradient(circle at var(--x) var(--y), rgba(255, 255, 255, 0.1), transparent 100px);
-      z-index: -1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start; /* Align content to the top */
+      align-items: flex-end;
+      padding: 20px;
+      padding-right: 40px; /* Right padding */
+      box-sizing: border-box;
+    }
+  
+    .headline {
+      font-size: 3rem;
+      font-weight: 700; /* Thicker text */
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      margin-bottom: 20px;
+      text-align: right;
+    }
+  
+    .message-container {
+      width: 80%;
+      max-width: 400px;
+      height: 100%; /* calc(100vh - 120px) Fit below the headline */
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      overflow: hidden; /* Hide scrollbar */
+      position: relative; /* For absolute positioning of message boxes */
+    }
+  
+    .message-box {
+      margin-top: 7vh;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transform: translateY(150px);
+      transition: opacity 2.5s ease-out, transform 1s ease-out;
+      position: absolute; /* All boxes in the same position */
+      top: 0; /* Fixed position */
+    }
+  
+    .message-box.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  
+    .message-box.fade-out-up {
+      opacity: 0;
+      transform: translateY(-150px);
+      transition: opacity 2.5s ease-out, transform 1s ease-out;
+    }
+  
+    .message-box.fade-out-down {
+      opacity: 0;
+      transform: translateY(150px);
+      transition: opacity 2.5s ease-out, transform 1s ease-out;
+    }
+  
+    .message-box.fade-in-down {
+      opacity: 1;
+      transform: translateY(-150px);
+      transition: opacity 2.5s ease-out, transform 1s ease-out;
+    }
+  
+    .message-box p {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #333;
+    }
+  
+    #calendar {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+  
+    #map {
+      margin-top: 10px;
+      border-radius: 10px;
     }
   </style>
+
+  <script>
+    // Initialize Flatpickr for the calendar
+    const calendar = flatpickr("#calendar", {
+        enableTime: false,
+        dateFormat: "Y-m-d",
+        onChange: function(selectedDates, dateStr, instance) {
+            selectedDate = dateStr;
+            sendData();
+        }
+    });
+
+    // Initialize Leaflet map
+    const map = L.map('map').setView([51.505, -0.09], 13); // Default to London
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+    }).addTo(map);
+
+    let selectedLocation = null;
+    map.on('click', function(e) {
+        if (selectedLocation) {
+            map.removeLayer(selectedLocation);
+        }
+        selectedLocation = L.marker(e.latlng).addTo(map);
+        sendData();
+    });
+
+    // Function to send data
+    function sendData() {
+        const date = calendar.selectedDates[0] ? calendar.selectedDates[0].toISOString().split('T')[0] : null;
+        const location = selectedLocation ? selectedLocation.getLatLng() : null;
+
+        if (date && location) {
+            const message = `Selected Date: ${date}, Selected Location: ${location.lat}, ${location.lng}`;
+            // Replace with your phone number and message sending logic
+            console.log(message); // For demonstration, log to console
+            // Example: Send via SMS API (Twilio, etc.)
+            // fetch('https://api.twilio.com/2010-04-01/Accounts/{AccountSID}/Messages.json', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/x-www-form-urlencoded',
+            //         'Authorization': 'Basic ' + btoa('{AccountSID}:{AuthToken}')
+            //     },
+            //     body: `To=+1234567890&From=+0987654321&Body=${encodeURIComponent(message)}`
+            // });
+        }
+    }
+  </script>
 </head>
 <body>
   <div class="container">
-    <h1>Will you be my Valentine?</h1>
-    <div class="buttons">
-      <a href="valentine.html" class="btn yes" id="yesBtn">Yes</a>
-      <button class="btn no" id="noBtn">No</button>
+    <div class="headline">OUR FIRST VALENTINES DAYY🌷🌷</div>
+    <div class="message-container" id="messageContainer">
+      <div class="message-box visible" id="message1">
+        <p>Heyy myy lovee, <br> Ive been thinkin bout how lucky I am to have you in my lifee</p>
+      </div>
+      <div class="message-box" id="message2">
+        <p>and I cant wait to spend my first Valentines Day withh youu and not alonee</p>
+      </div>
+      <div class="message-box" id="message3">
+        <p>You make every day brighter just by being in it. 💖</p>
+        <p>I cherish every moment we spend together. 🌸</p>
+        <p>Your love is the most beautiful thing in my life. 🌷</p>
+        <p>Forever grateful to have you by my side. 💕</p>
+      </div>
+      <div class="message-box" id="message4">
+        <p>Choose a date for our next adventure:</p>
+        <input type="text" id="calendar" placeholder="Select Date">
+      </div>
+      <div class="message-box" id="message5">
+        <p>Choose a location for our next adventure:</p>
+        <div id="map" style="height: 300px; width: 100%;"></div>
+      </div>
+      <div class="message-box" id="message6">
+        <p>Forever grateful to have you by my side. 💕</p>
+      </div>
     </div>
   </div>
 
-  <script>
-    const noBtn = document.getElementById('noBtn');
-    const yesBtn = document.getElementById('yesBtn');
-    const noTexts = ["no :c", "pleasee", "cmon babe >:c", "please babe just gimme a chance :("];
-    let yesScale = 1; // Initial scale for the Yes button
-
-    // Function to change the No button text randomly
-    function changeNoText() {
-      const randomIndex = Math.floor(Math.random() * noTexts.length);
-      noBtn.textContent = noTexts[randomIndex];
-    }
-
-    // Function to increase the size of the Yes button
-    function increaseYesSize() {
-      yesScale += 0.2; // Increase scale by 0.2 each time
-      yesBtn.style.transform = `scale(${yesScale})`;
-    }
-
-    // Add click event listener to the No button
-    noBtn.addEventListener('click', () => {
-      changeNoText(); // Change the No button text
-      increaseYesSize(); // Increase the size of the Yes button
-    });
-
-    // Cursor light effect
-    document.addEventListener('mousemove', (e) => {
-      document.documentElement.style.setProperty('--x', `${e.clientX}px`);
-      document.documentElement.style.setProperty('--y', `${e.clientY}px`);
-    });
-  </script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="valentine-script.js"></script>
 </body>
 </html>

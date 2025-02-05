@@ -5,161 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Valentine's Day!</title>
   <link rel="stylesheet" href="styles.css">
-  <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-      font-family: 'Arial', sans-serif;
-      height: 100vh;
-      display: flex;
-      justify-content: flex-end;
-      align-items: flex-start; /* Align content to the top */
-    }
-
-    .container {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start; /* Align content to the top */
-      align-items: flex-end;
-      padding: 20px;
-      padding-right: 40px; /* Right padding */
-      box-sizing: border-box;
-    }
-
-    .headline {
-      font-size: 3rem;
-      font-weight: 700; /* Thicker text */
-      color: white;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-      margin-bottom: 20px;
-      text-align: right;
-    }
-
-    .message-container {
-      width: 80%;
-      max-width: 400px;
-      height: 100%; /* calc(100vh - 120px) Fit below the headline */
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      overflow: hidden; /* Hide scrollbar */
-      position: relative; /* For absolute positioning of message boxes */
-    }
-
-    .message-box {
-      margin-top: 7vh;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      opacity: 0;
-      transform: translateY(150px);
-      transition: opacity 2.5s ease-out, transform 1s ease-out;
-      position: absolute; /* All boxes in the same position */
-      top: 0; /* Fixed position */
-    }
-
-    .message-box.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .message-box.fade-out-up {
-      opacity: 0;
-      transform: translateY(-150px);
-      transition: opacity 2.5s ease-out, transform 1s ease-out;
-    }
-
-    .message-box.fade-out-down {
-      opacity: 0;
-      transform: translateY(150px);
-      transition: opacity 2.5s ease-out, transform 1s ease-out;
-    }
-
-    .message-box.fade-in-down {
-      opacity: 1;
-      transform: translateY(-150px);
-      transition: opacity 2.5s ease-out, transform 1s ease-out;
-    }
-
-
-    .message-box p {
-      margin: 0;
-      font-size: 1.2rem;
-      color: #333;
-    }
-  </style>
+  <link rel="stylesheet" href="valentine-styles.css">
 </head>
 <body>
   <div class="container">
     <div class="headline">OUR FIRST VALENTINES DAYY🌷🌷</div>
     <div class="message-container" id="messageContainer">
       <div class="message-box visible" id="message1">
-        <p>You make every day brighter just by being in it. 💖</p>
+        <p>Heyyy myy loveee, <br><br> Ive been thinkin bout how luckyy I am to have you on myy lifee 💖</p>
       </div>
       <div class="message-box" id="message2">
-        <p>I cherish every moment we spend together. 🌸</p>
+        <p>and I reallyyy cant wait to spend my first Valentines Day withh yyouu myy loveee 🌸</p>
       </div>
       <div class="message-box" id="message3">
-        <p>Your love is the most beautiful thing in my life. 🌷</p>
+        <p>Soooooo.... <br><br> letss start to plan what we gonna do on ourr first Valentiness Dayy 🌷</p>
       </div>
       <div class="message-box" id="message4">
-        <p>Forever grateful to have you by my side. 💕</p>
+        <p>Firstlyyy we gotta need a place where to go on our valentiness dayy 💕</p>
+      </div>
+      <div class="message-box" id="message5">
+        <p>Firstly lets finee a dayy where we can datee for it babee💕</p>
+      </div>
+      <!-- Update the calendar message box -->
+      <div class="message-box" id="message4">
+        <div class="calendar-wrapper">
+          <div class="calendar-header" id="calendarHeader"></div>
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
+        <p class="romantic-text">Choose the day our hearts will meet again ❤️</p>
+      </div>
+      <div class="message-box" id="message7">
+        <p>What do you thinkk about photobooth?</p>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3007.2138708524867!2d13.3202177!3d52.50558909999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a851881a7d8df3%3A0x9d146b10ee0431ff!2sselca%20plus%2B!5e1!3m2!1sen!2sde!4v1738759254000!5m2!1sen!2sde" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </div>
   </div>
 
-  <script>
-    const messageContainer = document.getElementById('messageContainer');
-    const messageBoxes = document.querySelectorAll('.message-box');
-    let currentIndex = 0;
-
-    // Function to handle swipe up
-    function handleSwipeUp() {
-      if (currentIndex >= messageBoxes.length - 1) return; // Stop if no more messages
-
-      // Fade out the current message box
-      messageBoxes[currentIndex].classList.add('fade-out-up');
-
-      // Fade in the next message box
-      currentIndex++;
-      messageBoxes[currentIndex].classList.remove('fade-out-down');
-      messageBoxes[currentIndex].classList.add('visible');
-    }
-
-    function handleSwipeDown() {
-      if (currentIndex <= 0) return;
-      messageBoxes[currentIndex].classList.add('fade-out-down');
-
-      currentIndex--;
-      messageBoxes[currentIndex].classList.remove('fade-out-up');
-      messageBoxes[currentIndex].classList.add('visible');
-    }
-
-    // Touch event handlers for swipe detection
-    let touchStartY = 0;
-
-    messageContainer.addEventListener('touchstart', (e) => {
-      touchStartY = e.touches[0].clientY;
-    });
-
-    messageContainer.addEventListener('touchend', (e) => {
-      const touchEndY = e.changedTouches[0].clientY;
-      const deltaY = touchStartY - touchEndY;
-
-      // Detect swipe up (deltaY > 50 to avoid accidental swipes)
-      if (deltaY > 50) {
-        handleSwipeUp();
-      }
-      // Detect swipe down (deltaY < -50 to avoid accidental swipes)
-      else if (deltaY < -50) {
-        handleSwipeDown();
-      }
-    });
-  </script>
+  <script src="valentine-script.js"></script>
 </body>
 </html>
