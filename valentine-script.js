@@ -105,7 +105,7 @@ function generateCalendarGrid() {
         <span>${day}</span>
       `;
     }
-
+    
     dateBtn.addEventListener('click', () => handleDateClick(day, dateBtn));
     calendarGrid.appendChild(dateBtn);
   }
@@ -114,19 +114,25 @@ function generateCalendarGrid() {
 // Handle date clicks
 function handleDateClick(day, button) {
   const allButtons = document.querySelectorAll('.date-btn');
+  const text = document.getElementById('date');
   allButtons.forEach(btn => btn.classList.remove('special-date'));
+  text.style.marginTop = "3vh";
 
   if (day === 14) {
     button.classList.add('special-date');
-    button.innerHTML = `
-      <span>${day}</span>
-    `;
-    // Add romantic animation effect
-    button.style.transform = 'scale(1.3)';
+    text.style.color = "red";
+    text.innerHTML = "YYAASSS PERFECT DAYY";
+
+
     setTimeout(() => {
-      button.style.transform = 'scale(1)';
-    }, 100);
+      window.location.href = 'valentines-place.html';
+    }, 5000);
+  } else if (day < 14) {
+    text.innerHTML = "Nahhh thats too early •~•";
+  } else if (day > 14) {
+    text.innerHTML = "but thats too late tho :c";
   }
+
 }
 
 // Generate the calendar when the page loads

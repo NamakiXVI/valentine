@@ -31,6 +31,7 @@
     display: flex;
     gap: 20px;
     justify-content: center;
+    width: 100%;
   }
   
   .btn {
@@ -72,15 +73,6 @@
     pointer-events: none;
     background: radial-gradient(circle at var(--x) var(--y), rgba(255, 255, 255, 0.1), transparent 100px);
     z-index: -1;
-  }
-
-  .gif-container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: none;
-    z-index: 999;
   }
 
   .thank-you-text {

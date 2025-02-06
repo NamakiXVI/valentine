@@ -1,7 +1,7 @@
 body {
     margin: 0;
     overflow: hidden;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    background: linear-gradient(135deg, #ff6f61, #ffcccb);
     font-family: 'Arial', sans-serif;
     height: 100vh;
     display: flex;
@@ -10,6 +10,7 @@ body {
   }
 
   .container {
+    margin-top: 5vh;
     width: 100%;
     height: 100%;
     display: flex;
@@ -42,6 +43,7 @@ body {
   }
 
   .message-box {
+    align-items: center;
     text-align: right;
     margin-top: 7vh;
     width: 100%;
@@ -63,20 +65,20 @@ body {
 
   .message-box.fade-out-up {
     opacity: 0;
-    transform: translateY(-150px);
-    transition: opacity 2.5s ease-out, transform 1s ease-out;
+    transform: translateY(-250px);
+    transition: opacity 2s ease-out, transform 1s ease-out;
   }
 
   .message-box.fade-out-down {
     opacity: 0;
-    transform: translateY(150px);
-    transition: opacity 2.5s ease-out, transform 1s ease-out;
+    transform: translateY(250px);
+    transition: opacity 2s ease-out, transform 1s ease-out;
   }
 
   .message-box.fade-in-down {
     opacity: 1;
-    transform: translateY(-150px);
-    transition: opacity 2.5s ease-out, transform 1s ease-out;
+    transform: translateY(-250px);
+    transition: opacity 2s ease-out, transform 1s ease-out;
   }
 
   .message-box p {
@@ -152,9 +154,9 @@ body {
     transform: translate(-50%, -50%);
   }
   
-  .date-btn:not(.empty):hover {
+  .special-date:hover {
     background: #ffdde6;
-    transform: scale(1.5);
+    transform: scale(5);
   }
   
   .date-btn.empty {
@@ -165,12 +167,13 @@ body {
   .special-date {
     background: #b8f7d4 !important;
     animation: heartBeat 1.5s infinite;
+    transform: scale(5);
     box-shadow: 0 0 15px rgba(100, 255, 150, 0.5);
   }
   
   @keyframes heartBeat {
     0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+    50% { transform: scale(1.8); }
     100% { transform: scale(1); }
   }
   
