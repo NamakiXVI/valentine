@@ -37,5 +37,5 @@ yesBtn.addEventListener('click', (e) => {
   // Redirect after 3 seconds
   setTimeout(() => {
     window.location.href = 'valentine.html';
-  }, 3000);
+  }, 5000);
 });
