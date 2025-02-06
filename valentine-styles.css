@@ -45,7 +45,7 @@ body {
   .message-box {
     align-items: center;
     text-align: right;
-    margin-top: 7vh;
+    margin-top: 2vh;
     width: 100%;
     background: rgba(255, 255, 255, 0.9);
     border-radius: 15px;
