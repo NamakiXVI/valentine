@@ -3,7 +3,7 @@ body {
     overflow: hidden;
     background: linear-gradient(135deg, #ff6f61, #ffcccb);
     font-family: 'Arial', sans-serif;
-    height: 100vh;
+    height: 110vh;
     display: flex;
     justify-content: flex-end;
     align-items: flex-start; /* Align content to the top */
@@ -27,7 +27,7 @@ body {
     font-weight: 700; /* Thicker text */
     color: white;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    margin-bottom: 20px;
+    margin-bottom: 1vh;
     text-align: right;
   }
 
@@ -88,19 +88,19 @@ body {
   }
 
   .calendar-wrapper {
-    margin-top: 20px;
+    margin-top: 15px;
   }
   
   .calendar-header {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
   
   .calendar-title {
     font-family: 'Pacifico', cursive;
     color: #ff3a8d;
     font-size: 1.8rem;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
   }
   
   .calendar-year {
@@ -131,7 +131,6 @@ body {
   
   .date-btn {
     width: 100%;
-    height: 0;
     padding-top: 100%; /* Makes the button square */
     border: none;
     border-radius: 8px;
@@ -180,7 +179,7 @@ body {
   .romantic-text {
     text-align: center;
     color: #ff3a8d;
-    margin-top: 20px;
+    margin-top: 15px;
     font-size: 1.1rem;
   }
   

@@ -116,7 +116,7 @@ function handleDateClick(day, button) {
   const allButtons = document.querySelectorAll('.date-btn');
   const text = document.getElementById('date');
   allButtons.forEach(btn => btn.classList.remove('special-date'));
-  text.style.marginTop = "3vh";
+  text.style.marginTop = "1vh";
 
   if (day === 14) {
     button.classList.add('special-date');

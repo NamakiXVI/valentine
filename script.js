@@ -34,8 +34,8 @@ yesBtn.addEventListener('click', (e) => {
     <img src="cute_hug.gif" alt="Hug" style="width: 100%; height: 100%">
   `;
   
-  // Redirect after 3 seconds
+  // Redirect after 5 seconds
   setTimeout(() => {
     window.location.href = 'valentine.html';
-  }, 5000);
+  }, 5500);
 });
