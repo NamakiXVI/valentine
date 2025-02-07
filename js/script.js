@@ -31,7 +31,7 @@ yesBtn.addEventListener('click', (e) => {
   document.querySelector('h1').innerHTML = "Thankk youuu babee";
 
   gif.innerHTML = `
-    <img src="cute_hug.gif" alt="Hug" style="width: 100%; height: 100%">
+    <img src="img/cute_hug.gif" alt="Hug" style="width: 100%; height: 100%">
   `;
   
   // Redirect after 5 seconds
