@@ -49,6 +49,9 @@ btn1.addEventListener('click', () => {
     // Add your submit logic here
     btn1.classList.add('photobooth');
     btn1.innerHTML = 'YAAAASSSS ❤️‍🔥';
+    setTimeout(() => {
+        window.location.href = 'photobooth.html';
+      }, 2500);
 });
 
 btn2.addEventListener('click', () => {
