@@ -1,4 +1,3 @@
-// Updated JavaScript
 const cardContainer = document.getElementById('cardContainer');
 const cards = document.querySelectorAll('.card-slide');
 let currentCardIndex = 0;
@@ -38,32 +37,3 @@ cardContainer.addEventListener('touchend', e => {
         showNextCard();
     }
 });
-
-const btn1 = document.getElementById('btn1');
-const btn2 = document.getElementById('btn2');
-const btn3 = document.getElementById('btn3');
-const btn4 = document.getElementById('btn4');
-// Add click handlers for submit buttons
-
-btn1.addEventListener('click', () => {
-    // Add your submit logic here
-    btn1.classList.add('photobooth');
-    btn1.innerHTML = 'YAAAASSSS ❤️‍🔥';
-});
-
-btn2.addEventListener('click', () => {
-    // Add your submit logic here
-    btn2.innerHTML = 'uhmm okayyy';
-});
-
-btn3.addEventListener('click', () => {
-    // Add your submit logic here
-    btn3.innerHTML = 'Yayy new photoboothh';
-});
-
-btn4.addEventListener('click', () => {
-    // Add your submit logic here
-    btn4.innerHTML = 'I hope you like it';
-});
-
-
