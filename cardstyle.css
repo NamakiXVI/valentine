@@ -1,0 +1,60 @@
+/* Updated CSS */
+.card-container {
+    width: 100%;
+    height: 30vh;
+    position: relative;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.card-slide {
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 3 8px 15px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.5s ease-in-out;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-slide.visible_slide {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.card-slide.fade-out-left {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+.card-slide.fade-out-right {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+.romantic-btn {
+    padding: 12px 30px;
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    margin-top: auto;
+    margin-bottom: 20px;
+}
+
+.romantic-btn:hover {
+    background: #ff5252;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}

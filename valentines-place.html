@@ -6,6 +6,7 @@
   <title>Happy Valentine's Day!</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="valentine-styles.css">
+  <link rel="stylesheet" href="cardstyle.css">
 </head>
 <body>
   <div class="container">
@@ -14,28 +15,36 @@
       <div class="message-box visible" id="message1">
         <p>Noww we gotta findd a placee where we can go on our firstt valentiness dayy🌷</p>
       </div>
-      
-      <div class="message-box" id="message2">
-        <p></p>
-        <div class="card-container" id="cardContainer">
-          <div class="card" id="card1">
-            <img src="images/valentines-place-1.jpg" alt="Valentines Place 1">
-          </div>
-          <div class="card" id="card2">
-            <img src="images/valentines-place-2.jpg" alt="Valentines Place 2">
-          </div>
-          <div class="card" id="card3">
-            <img src="images/valentines-place-3.jpg" alt="Valentines Place 3">
-          </div>
-          <div class="card" id="card4">
-            <img src="images/valentines-place-4.jpg" alt="Valentines Place 4">
-          </div>
-        <div></div>
-        <p>🠔 Swipe Left</p>
-        <p>Swipe Right 🠖</p>
-      </div>
-  </div>
+        <div class="message-box" id="message2">
+            <p>Which one of these dates do you wanna go? 🌹</p>
+            <!-- Add this inside your second message-box div -->
+            <div class="card-container" id="cardContainer">
+                <div class="card-slide visible_slide" id="card1">
+                    <p>Photo Boothh</p>
+                    <button class="romantic-btn">Submit</button>
+                </div>
+                <div class="card-slide" id="card2">
+                    <p>HOTT POOTT </p>
+                    <button class="romantic-btn">Submit</button>
+                </div>
+                <div class="card-slide" id="card3">
+                    <p>Valentines Place 3</p>
+                    <button class="romantic-btn">Submit</button>
+                </div>
+                <div class="card-slide" id="card4">
+                    <p>Valentines Place 4</p>
+                    <button class="romantic-btn">Submit</button>
+                </div>
+            </div>
+        
+        </div>
 
+    </div>
+
+    
+
+  </div>
   <script src="valentine-script.js"></script>
+  <script src="swipescript.js"></script>
 </body>
 </html>
