@@ -1,6 +1,6 @@
 .card-container {
     width: 100%;
-    height: 50vh;
+    height: 55vh;
     position: relative;
     overflow: hidden;
     box-shadow: 3 8px 15px rgba(0, 0, 0, 0.2);
@@ -8,11 +8,11 @@
 }
 
 .card-slide {
-    width: 100%;
+    width: 50%;
     height: 100%;
     background: rgb(255, 255, 255);
     border-radius: 15px;
-    box-shadow: 3 8px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 3 8px 15px rgba(0, 0, 0, 1);
     opacity: 0;
     transform: translateX(100%);
     transition: all 0.5s ease-in-out;
@@ -20,7 +20,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    left: 0;
+    left: 25%;
 }
 
 .card-slide.visible_slide {
@@ -39,9 +39,17 @@
 }
 
 img{
+
     display: flex;
-    right: 0;
     width: auto;
-    height: 100%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    height: 90%;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.6);
+    justify-content: flex-end;
+}
+
+p{
+    font-family: 'Pacifico', cursive;
+    font-size: 1rem;
+    color: #ff0000;
+    bottom: 0 !important;
 }
