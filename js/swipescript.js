@@ -57,16 +57,25 @@ btn1.addEventListener('click', () => {
 btn2.addEventListener('click', () => {
     // Add your submit logic here
     btn2.innerHTML = 'uhmm okayyy';
+    setTimeout(() => {
+        window.location.href = 'hotpot.html';
+      }, 2500);
 });
 
 btn3.addEventListener('click', () => {
     // Add your submit logic here
-    btn3.innerHTML = 'Yayy new photoboothh';
+    btn3.innerHTML = 'thatss okayy';
+    setTimeout(() => {
+        window.location.href = 'photoblink.html';
+      }, 2500);
 });
 
 btn4.addEventListener('click', () => {
     // Add your submit logic here
     btn4.innerHTML = 'I hope you like it';
+    setTimeout(() => {
+        window.location.href = 'sorikono.html';
+      }, 2500);
 });
 
 
