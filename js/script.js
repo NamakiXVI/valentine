@@ -39,3 +39,14 @@ yesBtn.addEventListener('click', (e) => {
     window.location.href = 'valentine.html';
   }, 3000);
 });
+
+
+const lovebtn= document.getElementById('loveBtn');
+loveBtn.addEventListener('click', () => {
+  // Add your submit logic here
+  loveBtn.classList.add('buttonpressed-btn');
+
+  setTimeout(() => {
+      window.location.href = 'love-timer.html';
+    }, 1000);
+});

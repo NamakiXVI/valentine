@@ -1,0 +1,94 @@
+/* styles.css */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Great Vibes', cursive;
+    background: linear-gradient(135deg, #e70008 0%, #ffffff 100%);
+    color: #5e2a2a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 2s ease-in-out;
+    max-width: 90%; /* Ensure it doesn't overflow on small screens */
+  }
+  
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #5e2a2a;
+  }
+  
+  #timer {
+    font-size: 2rem;
+    font-family: 'Roboto', sans-serif;
+    margin: 20px 0;
+  }
+  
+  #timer span {
+    font-weight: bold;
+    color: #ff6f61;
+  }
+  
+  .romantic-message {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    color: #5e2a2a;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2.5rem; /* Smaller font size for smaller screens */
+    }
+  
+    #timer {
+      font-size: 1.5rem; /* Smaller timer font size */
+    }
+  
+    .romantic-message {
+      font-size: 1.2rem; /* Smaller message font size */
+    }
+  
+    .container {
+      padding: 20px; /* Less padding for smaller screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 2rem; /* Even smaller font size for mobile */
+    }
+  
+    #timer {
+      font-size: 1.2rem; /* Smaller timer font size */
+    }
+  
+    .romantic-message {
+      font-size: 1rem; /* Smaller message font size */
+    }
+  
+    .container {
+      padding: 15px; /* Less padding for very small screens */
+    }
+  }
