@@ -31,3 +31,11 @@ iframe{
     width: 100%;
     height: auto;
 }
+
+.map-text{
+    font-family: 'Pacifico', cursive;
+    font-size: 1.5rem;
+    color: #ff3a8d;
+    margin-top: 1vh;
+    justify-content: center;
+}
