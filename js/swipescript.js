@@ -64,7 +64,7 @@ btn2.addEventListener('click', () => {
 
 btn3.addEventListener('click', () => {
     // Add your submit logic here
-    btn3.innerHTML = 'Yayy new photoboothh';
+    btn3.innerHTML = 'thatss okayy';
     setTimeout(() => {
         window.location.href = 'photoblink.html';
       }, 2500);
